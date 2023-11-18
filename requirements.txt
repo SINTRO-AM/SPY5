@@ -1,0 +1,110 @@
+from dash import Dash, html, dcc, callback, Output, Input, dash_table
+import yfinance as yf
+import datetime as dt
+import matplotlib.dates as mdates
+import pandas as pd
+import numpy as np
+from scipy.stats import norm
+import matplotlib.pyplot as plt
+import openpyxl
+from openpyxl.utils.dataframe import dataframe_to_rows
+import datetime
+import plotly.graph_objects as go
+import plotly.express as px
+import seaborn as sns
+import ipywidgets as widgets
+from IPython.display import display, clear_output
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+
+ansi2html==1.8.0
+appdirs==1.4.4
+asttokens==2.4.1
+backcall==0.2.0
+beautifulsoup4==4.12.2
+cachetools==5.3.1
+certifi==2023.5.7
+cffi==1.15.1
+chardet==5.2.0
+charset-normalizer==3.1.0
+click==8.1.7
+colorama==0.4.6
+comm==0.1.4
+contourpy==1.0.7
+cryptography==40.0.2
+cycler==0.11.0
+dash==2.14.0
+dash-bootstrap-components==1.5.0
+dash-core-components==2.0.0
+dash-html-components==2.0.0
+dash-table==5.0.0
+DateTime==5.1
+decorator==5.1.1
+distlib==0.3.7
+et-xmlfile==1.1.0
+executing==2.0.0
+filelock==3.12.4
+Flask==2.2.5
+fonttools==4.39.4
+frozendict==2.3.8
+html5lib==1.1
+ibapi==9.81.1.post1
+idna==3.4
+importlib-metadata==6.8.0
+ipython==8.16.1
+ipywidgets==8.1.1
+itsdangerous==2.1.2
+jedi==0.19.1
+Jinja2==3.1.2
+joblib==1.2.0
+jupyterlab-widgets==3.0.9
+kiwisolver==1.4.4
+lxml==4.9.2
+MarkupSafe==2.1.3
+matplotlib==3.7.1
+matplotlib-inline==0.1.6
+multitasking==0.0.11
+nest-asyncio==1.5.8
+numpy==1.24.3
+openpyxl==3.1.2
+packaging==23.1
+pandas==2.0.2
+parso==0.8.3
+pickleshare==0.7.5
+Pillow==9.5.0
+platformdirs==3.11.0
+plotly==5.17.0
+pluggy==1.3.0
+prompt-toolkit==3.0.39
+pure-eval==0.2.2
+pycparser==2.21
+Pygments==2.16.1
+pyparsing==3.0.9
+pyproject-api==1.6.1
+python-dateutil==2.8.2
+pytz==2023.3
+requests==2.31.0
+retrying==1.3.4
+scikit-learn==1.2.2
+scipy==1.10.1
+seaborn==0.13.0
+six==1.16.0
+soupsieve==2.4.1
+stack-data==0.6.3
+tenacity==8.2.3
+threadpoolctl==3.1.0
+tox==4.11.3
+traitlets==5.12.0
+typing_extensions==4.8.0
+tzdata==2023.3
+urllib3==2.0.2
+virtualenv==20.24.5
+wcwidth==0.2.8
+webencodings==0.5.1
+Werkzeug==2.2.3
+widgetsnbextension==4.0.9
+yfinance==0.2.18
+zipp==3.17.0
+zope.interface==6.0
