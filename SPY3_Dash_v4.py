@@ -240,7 +240,7 @@ def determine_risk_button_color(current_var_1d):
     if current_var_1d < 0.02:
         return 'green'
     elif 0.02 <= current_var_1d <= 0.05:
-        return 'orange'
+        return 'grey'
     else:
         return 'red'
     
@@ -380,9 +380,29 @@ app.layout = html.Div([
                     'display': 'inline-block'
                 }
             ),
+
             ], style={'textAlign': 'center'}),  # This centralizes the button group
 
             dcc.Graph(id='performance-graph', style={'height': '90vh', 'clear': 'both'}),
+
+                    # Button für die Wahrscheinlichkeit eines Signalwechsels
+ html.Div(
+    html.Button(
+        "Probability of signal shift within the next 20 days= {:.2f}%".format(probability_switch * 100), 
+        id='probability-button', 
+        style={
+            'background-color': 'white',
+            'color': 'black',
+            'border': 'none',
+            'padding': '10px 20px',
+            'fontWeight': 'bold',
+            'font-family': 'Segoe UI',
+            'display': 'inline-block'
+        }
+    ),
+    style={'textAlign': 'center'}  # Zentriert den Button innerhalb dieses Div-Containers
+),
+
             dcc.Graph(id='price-and-var-graph', style={'height': '90vh'}),
 
              # Annual Returns Table
