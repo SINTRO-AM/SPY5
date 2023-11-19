@@ -1,1 +1,1 @@
-web: gunicorn SPY3_Dash_v4:app --bind 127.0.0.1:51819
+web: GUNICORN_CMD_ARGS="--bind=127.0.0.1" gunicorn SPY3_Dash_v4:app 
