@@ -17,6 +17,7 @@ from IPython.display import display, clear_output
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
+import os
 
 #Input
 start_date = dt.datetime(2000, 1, 1)
@@ -554,5 +555,6 @@ print("Current VaR =",round(current_var_1d*100,4),"%")
 print('End')
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 51819)))
+    server = app.server
     
