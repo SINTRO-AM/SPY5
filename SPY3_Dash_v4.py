@@ -313,7 +313,8 @@ def generate_shapes_for_signals(df):
 
 shapes = generate_shapes_for_signals(df)
 
-app.layout = html.Div(
+app.layout = html.Div([
+    html.Div(
     children=[
         html.H1(
             children=f'Current SPY Price: ${current_spy_price:.2f}',
@@ -321,8 +322,7 @@ app.layout = html.Div(
         )
     ],
     className='dashboard-container'
-)
-
+),
 
     html.Div([
         html.Div([  # Container for the Buttons and the Performance Graph
