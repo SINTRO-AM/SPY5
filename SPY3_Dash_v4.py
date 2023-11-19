@@ -121,7 +121,7 @@ calmar_ratio_spy3 = annual_return_pf / abs(max_DD_SPY3)
 
 current_var_1d = round(df['VaR_1d'].iloc[-1],5)
 df['Rolling_200D_High_Discount'] = df['Close'].rolling(window=200).max() / 1.3
-p_delta = 1.3 * df['Close'].iloc[-1] / df['Close'].rolling(window=200).max().iloc[-1] -1 
+p_delta = (1.3 * df['Close'].iloc[-1] / df['Close'].rolling(window=200).max().iloc[-1] -1 )*100
 
 # Signal und Faktoren für die Buttons abrufen
 current_spy_price = spx_hist['Close'].iloc[-1]
@@ -338,7 +338,7 @@ app.layout = html.Div([
 
                 # Risk Button
                 html.Button(
-                "{} (VaR = {})".format(determine_risk_button_label(current_var_1d), round(current_var_1d*100,4)), 
+                "{} (VaR = {}%)".format(determine_risk_button_label(current_var_1d), round(current_var_1d*100,4)), 
                 id='risk-button', 
                 style={
                                 'background-color': determine_risk_button_color(current_var_1d),
@@ -353,7 +353,7 @@ app.layout = html.Div([
 
                 # Momentum Button
             html.Button(
-                "{} (SMA_Delta in USD = {:.2f})".format(determine_momentum_button_label(current_30d_ma, current_200d_ma), ma_delta), 
+                "{} (SMA_Delta = {:.2f}USD)".format(determine_momentum_button_label(current_30d_ma, current_200d_ma), ma_delta), 
                 id='momentum-button', 
                 style={
                     'background-color': determine_momentum_button_color(current_30d_ma, current_200d_ma),
@@ -368,7 +368,7 @@ app.layout = html.Div([
             ),
               # Mean Reversion Button
             html.Button(
-                "{} (MR_Delta in % = {:.2f})".format(determine_meanreversion_button_label(p_delta), p_delta), 
+                "{} (MR_Delta = {:.2f}%)".format(determine_meanreversion_button_label(p_delta), p_delta), 
                 id='MR-button', 
                 style={
                     'background-color': determine_meanreversion_button_color(p_delta),
