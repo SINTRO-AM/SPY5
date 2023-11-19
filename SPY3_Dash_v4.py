@@ -124,6 +124,7 @@ df['Rolling_200D_High_Discount'] = df['Close'].rolling(window=200).max() / 1.3
 p_delta = 1.3 * df['Close'].iloc[-1] / df['Close'].rolling(window=200).max().iloc[-1] -1 
 
 # Signal und Faktoren für die Buttons abrufen
+current_spy_price = spx_hist['Close'].iloc[-1]
 current_signal = df['Signal'].iloc[-1]
 current_var_1d = round(df['VaR_1d'].iloc[-1],4)
 current_30d_ma = df['30D_MA'].iloc[-1]
@@ -312,7 +313,16 @@ def generate_shapes_for_signals(df):
 
 shapes = generate_shapes_for_signals(df)
 
-app.layout = html.Div([
+app.layout = html.Div(
+    children=[
+        html.H1(
+            children=f'Current SPY Price: ${current_spy_price:.2f}',
+            className='dashboard-header'
+        )
+    ],
+    className='dashboard-container'
+)
+
 
     html.Div([
         html.Div([  # Container for the Buttons and the Performance Graph
