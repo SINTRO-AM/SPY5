@@ -226,7 +226,7 @@ heatmap_spy3 = create_heatmap(heatmap_data_spy3, "Monthly Returns of the SPY3 Mo
 annual_bar.update_layout(font=dict(family="Segoe UI"), title='Annual Returns in %', barmode='group')
 
 external_stylesheets = ['./assets/custom.css']
-app = Dash(_name_, external_stylesheets=external_stylesheets)
+app = Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 def determine_button_color(signal_value):
