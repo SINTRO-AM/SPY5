@@ -1,1 +1,1 @@
-web: python SPY3_Dash_v4.py
+web: python app.py
