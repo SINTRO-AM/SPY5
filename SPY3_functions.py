@@ -33,6 +33,8 @@ def start_end_date(button_id):
         if button_map[button_id] == 'ytd':
             now = dt.datetime.now()
             start_date = dt.datetime(now.year, 1, 1)  # First day of current year
+        elif button_map[button_id] == 'Live':
+            start_date = dt.datetime(2023, 8, 1)  # Inception Date
         elif button_map[button_id] == 'total':
             start_date = dt.datetime(2000, 1, 1)  # January 1, 2000
         else:
@@ -153,6 +155,9 @@ def calculate_rolling_values_and_kpis(df):
     df['DD_SPY3'] = df['Total_Return'] - df['Total_Return'].cummax()
     df['DD_SPY'] = df['SPX_Total_Return'] - df['SPX_Total_Return'].cummax()
 
+    df['Alpha'] = (df['Portfolio_Return']) - (df['Return'])
+    df['Alpha_cum'] = (df['Alpha']).cumsum()
+
 
     return df
 
@@ -215,7 +220,7 @@ def create_performance_graph(df):
 
     # Update the layout with style elements
     fig.update_layout(
-        xaxis=dict(title='Date', titlefont=dict(size=14), gridcolor='lightgrey'),
+        xaxis=dict(titlefont=dict(size=14), gridcolor='lightgrey'),
         yaxis=dict(title='Cumulative Return (%)', titlefont=dict(size=14), gridcolor='lightgrey', tickformat=".0%"),
         legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
         plot_bgcolor='white',
@@ -225,6 +230,24 @@ def create_performance_graph(df):
     )
     return fig
 
+def Alpha(df):
+    # Assuming df['Date'], df['Portfolio_Return'], and df['Return'] are already defined in df
+    df['Alpha'] = (df['Portfolio_Return']) - (df['Return'])
+    df['Alpha_cum'] = (df['Alpha']).cumsum()
+
+    trace_alpha = go.Scatter(x=df['Date'], y=df['Alpha_cum'], mode='lines', name='Alpha', line=dict(color="#4D79C7", width=2), fill='tozeroy', fillcolor='rgba(77, 121, 199, 0.35)')
+
+    layout_alpha = go.Layout(
+        xaxis=dict(titlefont=dict(size=14), gridcolor='lightgrey'), 
+        yaxis=dict(title='Alpha',titlefont=dict(size=14), gridcolor='lightgrey',tickformat=".0%"),
+        legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        font=dict(color='black'),
+        margin=dict(l=20, r=20, t=10, b=20)
+    )
+    return go.Figure(data=[trace_alpha], layout=layout_alpha)
+
 def maxDD(df):
     # Define traces for maximum drawdowns
     trace_max_dd_spy3 = go.Scatter(x=df['Date'], y=df['DD_SPY3'], mode='lines', name='Max Drawdown SPY3', line=dict(color="#4472C4"))
@@ -232,13 +255,13 @@ def maxDD(df):
 
     # Define the layout with style elements
     layout_max_dd = go.Layout(
-        title='Maximum Drawdown Over Time: SPY3 vs. SPY',
-        xaxis=dict(title='Date', titlefont=dict(size=14), gridcolor='lightgrey'),
-        yaxis=dict(title='Max Drawdown', titlefont=dict(size=14), gridcolor='lightgrey'),
+        xaxis=dict(titlefont=dict(size=14), gridcolor='lightgrey'),
+        yaxis=dict(title='Max Drawdown', titlefont=dict(size=14), gridcolor='lightgrey',tickformat=".0%"),
         legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
         plot_bgcolor='white',
         paper_bgcolor='white',
-        font=dict(color='black')
+        font=dict(color='black'),
+        margin=dict(l=20, r=20, t=10, b=20)
     )
     return go.Figure(data=[trace_max_dd_spy3, trace_max_dd_spy], layout=layout_max_dd)
 
@@ -252,11 +275,35 @@ def create_price_and_var_graph(df):
     # Define traces for Close prices, Moving Averages, and VaR
     trace_spy_close = go.Scatter(x=df['Date'], y=df['Close'], mode='lines', name='SPY Close', line=dict(color="#1f77b4"))  # dark blue
     trace_shy_close = go.Scatter(x=df['Date'], y=df['CloseB'], mode='lines', name='US Treasuries', line=dict(color="darkgrey"))
-    trace_30d_ma = go.Scatter(x=df['Date'], y=df['30D_MA'], mode='lines', name='30 Day MA', line=dict(dash='dashdot', color='lightgrey'))
+    trace_30d_ma = go.Scatter(x=df['Date'], y=df['30D_MA'], mode='lines', name='30 Day MA', line=dict(dash='dashdot', color='green'))
     trace_200d_ma = go.Scatter(x=df['Date'], y=df['200D_MA'], mode='lines', name='200 Day MA', line=dict(dash='dashdot', color='grey'))
     trace_200d_high_discount = go.Scatter(x=df['Date'], y=df['Rolling_200D_High_Discount'], mode='lines', name='Mean-Reversion Threshold', line=dict(dash='dash', color="#FFBF00"))
     trace_var = go.Scatter(x=df['Date'], y=df['VaR_1d'], mode='lines', name='VaR', yaxis='y2', line=dict(color="#E088B0"))
+    trace_risk_off = go.Scatter(
+        x=[None], y=[None],
+        mode='lines',
+        name='Risk Off',
+        line=dict(color='rgba(128, 128, 128, 0.3)', width = 10),
+        showlegend=True
+    )
 
+      # Grüne Linie bei y=2%
+    green_line = {'type': 'line','xref': 'paper','x0': 0,'x1': 1,'yref': 'y2','y0': 0.02,'y1': 0.02,
+        'line': {
+            'color': 'green',
+            'width': 2,
+            'dash': 'dashdot',
+        },
+    }
+
+    # Rote Linie bei y=5%
+    red_line = {'type': 'line','xref': 'paper','x0': 0,'x1': 1,'yref': 'y2','y0': 0.05,'y1': 0.05,
+        'line': {
+            'color': 'red',
+            'width': 2,
+            'dash': 'dashdot',
+        },
+    }
     # Generate shapes for signals
     signal_shapes = generate_shapes_for_signals(df)
 
@@ -270,11 +317,11 @@ def create_price_and_var_graph(df):
         plot_bgcolor='white',
         paper_bgcolor='white',
         font=dict(color='black'),
-        shapes=signal_shapes  # Add signal shapes to the layout
+        shapes=[green_line, red_line] + signal_shapes   # Add signal shapes to the layout
     )
 
     # Create and return the figure
-    return go.Figure(data=[trace_spy_close, trace_shy_close, trace_30d_ma, trace_200d_ma, trace_200d_high_discount, trace_var], layout=layout_prices_and_var)
+    return go.Figure(data=[trace_spy_close, trace_shy_close, trace_30d_ma, trace_200d_ma, trace_200d_high_discount, trace_var,trace_risk_off], layout=layout_prices_and_var)
 
 def generate_shapes_for_signals(df):
     shapes = []

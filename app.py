@@ -5,9 +5,10 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 import datetime as dt
+import os
 
 # selfwritten functions
-from SPY3_functions import start_end_date, create_performance_graph, fetch_and_process_data, get_clicked_button_id, create_price_and_var_graph, create_results_df, current_results_df, maxDD
+from SPY3_functions import start_end_date, create_performance_graph, fetch_and_process_data, get_clicked_button_id, create_price_and_var_graph, create_results_df, current_results_df, Alpha,maxDD
 
 
 # Initialize the Dash app
@@ -18,7 +19,7 @@ app.layout = html.Div([
     html.Div(
     children=[
         html.H1(
-            children='SINTRO SPY3 Performance Dashboard',
+            children='SPY3 Performance Dashboard',
             className='dashboard-header'
                 )
             ],
@@ -40,6 +41,7 @@ app.layout = html.Div([
 
     html.Div([ 
             html.Div([
+                html.Button('Live', id='btn-Live', n_clicks=0, className='time-filter-btn'),
                 html.Button('YtD', id='btn-YtD', n_clicks=0, className='time-filter-btn'),
                 html.Button('1 Jahr', id='btn-1yr', n_clicks=0, className='time-filter-btn'),
                 html.Button('2 Jahre', id='btn-2yr', n_clicks=0, className='time-filter-btn'),
@@ -48,7 +50,7 @@ app.layout = html.Div([
                 html.Button('Reset', id='btn-max', n_clicks=0, className='time-filter-btn')
             ], className='button-container'),    
         html.Div([
-            html.Div([dcc.Graph(id='performance-graph',style={'height': '72vh'})], className='graph-container'),
+            html.Div([dcc.Graph(id='performance-graph',style={'height': '75vh'})], className='graph-container'),
             html.Div([
                 dash_table.DataTable(
                     id='table',
@@ -83,16 +85,17 @@ app.layout = html.Div([
                     }
                 ),
                     html.Div(style={'height': '20px'}), 
+                    dcc.Graph(id='Alpha',style={'height': '20vh'}),
 
-                dcc.Graph(id='maxDD',style={'height': '35vh'}),
+                    html.Div(style={'height': '20px'}), 
+
+                dcc.Graph(id='maxDD',style={'height': '22vh'}),
             ], className='table-container'),
         ], className='row-flex'),
     ], className='performance_container'),
 
     html.Div([ 
-    html.Div([
-        # ... [other divs and components]
-    ], className='performance_container'),
+
 
     dcc.Graph(id='price-and-var-graph', style={'height': '90vh'}),
 ])])
@@ -105,8 +108,10 @@ app.layout = html.Div([
      Output('table', 'columns'),
      Output('current-results-table', 'data'),  # Daten für die neue DataTable
      Output('current-results-table', 'columns'),
+     Output('Alpha', 'figure'),
      Output('maxDD', 'figure')]     ,
     [Input('index-selector', 'value'),
+     Input('btn-Live', 'n_clicks'),
      Input('btn-YtD', 'n_clicks'),
      Input('btn-1yr', 'n_clicks'),
      Input('btn-2yr', 'n_clicks'),
@@ -115,7 +120,7 @@ app.layout = html.Div([
      Input('btn-max', 'n_clicks')]
 )
 
-def update_graph(selected_index,btn_1yr, btn_2yr, btn_4yr, btn_5yr,btn_YtD, btn_max):
+def update_graph(selected_index,btn_1yr, btn_2yr, btn_4yr, btn_5yr,btn_YtD, btn_max, Live):
     # Get the ID of the clicked button
     button_id = get_clicked_button_id()
 
@@ -129,9 +134,11 @@ def update_graph(selected_index,btn_1yr, btn_2yr, btn_4yr, btn_5yr,btn_YtD, btn_
     results_data, results_columns = create_results_df(df)
 
     current_results_data, current_results_columns = current_results_df(df)
+    Alpha_figure = Alpha(df)
     max_dd_figure = maxDD(df)
-    return [figure_performance,figure_prices_and_var,results_data, results_columns, current_results_data, current_results_columns, max_dd_figure]
+    return [figure_performance,figure_prices_and_var,results_data, results_columns, current_results_data, current_results_columns, Alpha_figure, max_dd_figure]
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    server = app.server
