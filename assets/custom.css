@@ -58,7 +58,12 @@
 .graph-container {
     flex: 1;
     margin-right: 20px; /* Abstand zwischen Graph und Tabelle */
+    background-color: #172b40; /* Dunkelblauer Hintergrund für die Tabelle */
+    overflow: hidden;
+    padding: 15px;
+    margin-bottom: 20px; 
 }
+
 
 .table-container {
     flex: 1;

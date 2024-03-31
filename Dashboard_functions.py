@@ -25,6 +25,7 @@ def start_end_date(button_id):
         'btn-4yr': dt.timedelta(days=365 * 4),
         'btn-5yr': dt.timedelta(days=365 * 5),
         'btn-YtD': 'ytd',
+        'btn-Live': 'Live',
         'btn-max': 'total'  # Total period since 01-01-2000
     }
 
@@ -34,7 +35,7 @@ def start_end_date(button_id):
             now = dt.datetime.now()
             start_date = dt.datetime(now.year, 1, 1)  # First day of current year
         elif button_map[button_id] == 'Live':
-            start_date = dt.datetime(2023, 8, 1)  # Inception Date
+            start_date = dt.datetime(2022, 4, 1)  # Inception Date
         elif button_map[button_id] == 'total':
             start_date = dt.datetime(2000, 1, 1)  # January 1, 2000
         else:
@@ -96,13 +97,10 @@ def calculate_rolling_values_and_kpis(df):
     # Berechnung der gleitenden Durchschnitte
     df['30D_MA'] = df['Close'].rolling(window=30).mean()
     df['200D_MA'] = df['Close'].rolling(window=198).mean()
-
     df['STD'] = df['Return'].rolling(window=50,min_periods = 1).std()
 
-    # Berechnung der täglichen Standardabweichung über die letzten 50 Tage
+  # Berechnung der annualisierten Standardabweichung
     df['50d_STD'] = df['STD'] * np.sqrt(252)
-
-    # Berechnung der annualisierten Standardabweichung
 
     # Berechnung des täglichen Value at Risk (VaR) auf Basis der letzten 50 Returns
     df['VaR_1d'] = -df['50d_STD'] * norm.ppf(0.99) * np.sqrt(1/252)*-1
@@ -265,6 +263,40 @@ def maxDD(df):
     )
     return go.Figure(data=[trace_max_dd_spy3, trace_max_dd_spy], layout=layout_max_dd)
 
+##### Bar chart of annual returns
+def create_annual_bar_chart(df):
+    # Calculate Annual Returns
+    df['Year'] = pd.to_datetime(df['Date']).dt.to_period('Y')
+    annual_returns_spy = df.groupby('Year')['Return'].sum()
+    annual_returns_spy3 = df.groupby('Year')['Portfolio_Return'].sum()
+    annual_returns_table = pd.DataFrame({
+        'Year': annual_returns_spy.index.astype(str),
+        'SPY Annual Returns': ["{:.2f}%".format(val * 100) for val in annual_returns_spy.values],
+        'SPY3 Annual Returns': ["{:.2f}%".format(val * 100) for val in annual_returns_spy3.values]
+    })
+
+    # Create a bar chart with Plotly
+    annual_bar = go.Figure()
+    annual_bar.add_trace(go.Bar(
+        x=annual_returns_table['Year'],
+        y=annual_returns_table['SPY3 Annual Returns'].str.rstrip('%').astype('float'),
+        name='SPY3 Annual Returns',
+        marker_color='steelblue'
+    ))
+    annual_bar.add_trace(go.Bar(
+        x=annual_returns_table['Year'],
+        y=annual_returns_table['SPY Annual Returns'].str.rstrip('%').astype('float'),
+        name='SPY Annual Returns',
+        marker_color='lightgray'
+    ))
+
+    annual_bar.update_layout(
+        font=dict(family="Segoe UI"),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+    )
+    return annual_bar
 
 def create_price_and_var_graph(df):
     """
@@ -383,18 +415,18 @@ def create_results_df(df):
     return results_data, results_columns
 
 def current_results_df(df):
-    Inception_price = 448
+    Inception_price = 464
     Buy_Price = 435  # Durchschnittlicher Kaufpreis
-    inception_date = dt.datetime(2023, 8, 1)
+    inception_date = dt.datetime(2022, 4, 1)
     end_date = dt.datetime.now()
     n_days_since_inception = (end_date - inception_date).days
     current_spy_price = df['Close'].iloc[-1]
-    SPY3_return = round((current_spy_price / Buy_Price - 1) * 100,2)  # Rendite seit Kauf in %
+    SPY3_return = round(((current_spy_price-1) / Buy_Price - 1) * 100,2)  # Rendite seit Kauf in %
     SPY_return = round((current_spy_price / Inception_price - 1) * 100,2)  # Rendite seit Beginn in %
     Annualized_SPY3_return = round((SPY3_return / n_days_since_inception) * 252,2)
     Annualized_SPY_return = round((SPY_return / n_days_since_inception) * 252 ,2)
-    Current_NAV_SPY3 = round(current_spy_price * 25,2) 
-    Current_NAV_SPY = round(Buy_Price * 25,2)
+    Current_NAV_SPY3 = round(current_spy_price * 25,2) - 1
+    Current_NAV_SPY = round(current_spy_price * 25,2)
     formatted_NAV_SPY3 = "${:,.0f}".format(Current_NAV_SPY3)
     formatted_NAV_SPY = "${:,.0f}".format(Current_NAV_SPY)
 
