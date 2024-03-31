@@ -27,16 +27,19 @@ def preparing_df():
         df['Return_govB'].fillna(0, inplace=True)
 
     df.index = df.index.date 
+    return df
+def get_date_today(df):
 
-    date_today = dt.datetime.now().date()-dt.timedelta(days = 1)
+    # #können wir hierfür nicht auch einfach den letzten verfügbaren Tag nehmen?
+    # date_today = dt.datetime.now().date()-dt.timedelta(days = 1)
 
-    if date_today.weekday() >= 5:  # 5 steht für Samstag, 6 für Sonntag
-        while date_today.weekday() != 4:  # 4 steht für Freitag
-            date_today -= dt.timedelta(days = 2)
+    # if date_today.weekday() >= 5:  # 5 steht für Samstag, 6 für Sonntag
+    #     while date_today.weekday() != 4:  # 4 steht für Freitag
+    #         date_today -= dt.timedelta(days = 2) # aber warum hier -2?????
+    
+    return df.index.max()
 
-    return df, date_today
-
-def SMA_signal():
+def SMA_signal(df, date_today):
     """
     This function calculates the Simple Moving Averages (SMA) for the provided time series data df over two windows: 
 
@@ -49,10 +52,6 @@ def SMA_signal():
     The function thus provides a mechanism for identifying and following medium-term market trends, 
     while also providing signals for avoiding downside trends.
     """
-
-
-    df, date_today = preparing_df()
-
     short_window = 30
     long_window = 200
     # Calculate the 50-day moving average
@@ -64,7 +63,7 @@ def SMA_signal():
     else:
         return False
 
-def VaR_signal():
+def VaR_signal(df, date_today):
     """
    Description: This function calculates the daily Value-at-Risk (VaR) of the provided time series 
    data df at a given confidence_level (default is 99%) over a window of days (default is 50 days). 
@@ -75,7 +74,6 @@ def VaR_signal():
    typically 252, representing the average number of trading days in a year.
     
     """
-    df, date_today = preparing_df()
 
     # Daily log return
     df['log_return_SPX'] = np.log(df['close_SPX'] / df['close_SPX'].shift(1))
@@ -94,9 +92,8 @@ def VaR_signal():
     else:
         return False
 
-def VaR_threshold():
+def VaR_threshold(df, date_today):
 
-    df, date_today = preparing_df()
     # Daily log return
     df['log_return_SPX'] = np.log(df['close_SPX'] / df['close_SPX'].shift(1))
     # calculate the daily standard deviation over the past 50 days
@@ -112,7 +109,7 @@ def VaR_threshold():
     else:
         return False    
 
-def Rebound_signal():
+def Rebound_signal(df, date_today):
     """
     This function calculates the Rebound Factor for the provided time series data df by checking if the annualized returns of the prior 100days is less than -15%
     It returns a boolean series where True indicates a buy signal, i.e., the annualized ("forward-looking") return is less than -15%, 
@@ -121,10 +118,9 @@ def Rebound_signal():
     and capturing potential gains when markets rally and rebound in the short term.
     """
 
-    df, date_today = preparing_df()
-   
+   ###### hier gehe ich davon aus, dass du die annualisierte Rendite des SPY meinst - passe dementsprechend den Code an
     # Berechnung für den Fwd-Faktor, die annualisierte Rendite der letzten 100 Tage
-    df['Fwd'] = (((df['Close'] / df['Close'].shift(101)) - 1) / 100) * 252
+    df['Fwd'] = (((df['close_SPX'] / df['close_SPX'].shift(101)) - 1) / 100) * 252
   
     # calculate the asset price min 30% below its 200d high
     Fwd = df.at[date_today, 'Fwd'] 
@@ -136,5 +132,4 @@ def Rebound_signal():
     
 
 if __name__ == "__main__" :
-    VaR_signal()
     print("This script is not running any functions!")

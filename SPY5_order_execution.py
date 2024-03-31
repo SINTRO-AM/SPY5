@@ -6,7 +6,7 @@ from ibapi.order import *
 import threading
 import yfinance as yf
 import time
-from SPY5_logic import SMA_signal, VaR_signal, Rebound_signal, VaR_threshold
+from SPY5_logic import preparing_df, get_date_today, SMA_signal, VaR_signal, Rebound_signal, VaR_threshold
 import math
 
 class IBapi(EWrapper, EClient):
@@ -25,7 +25,7 @@ class IBapi(EWrapper, EClient):
     def accountSummaryEnd(self, reqId: int):
         ''' Called after all account summary data has been received '''
         #print("AccountSummaryEnd. Req Id: ", reqId)
-        self.disconnect()
+        # self.disconnect()
 
     def position(self, account: str, contract: Contract, holdings: float,
              avgCost: float):
@@ -45,7 +45,7 @@ class IBapi(EWrapper, EClient):
 
 def get_price(symbol):
     ticker = yf.Ticker(symbol)
-    todays_data = ticker.history(period='1d')
+    todays_data = ticker.history(period='max')
     return todays_data['Close'][0]
 
 def run_loop(app):
@@ -82,13 +82,17 @@ def main():
     print(app.positions)  # print the positions to the console
 
     # requests current SPY5 price
-    buy_price = get_price('MES=F')
+    buy_price = get_price("SPY")
     print(buy_price)
     available_funds = float(app.account_summary["TotalCashBalance"])
-    signal_SMA = SMA_signal()
-    signal_VaR = VaR_signal()
-    signal_rebound = Rebound_signal()
-    threshold_VaR = VaR_threshold()
+    df = preparing_df()
+    date_today = get_date_today(df)
+
+    signal_SMA = SMA_signal(df,date_today)
+    signal_VaR = VaR_signal(df,date_today)
+    signal_rebound = Rebound_signal(df,date_today)
+    threshold_VaR = VaR_threshold(df,date_today)
+
     print("signal_SMA:", signal_SMA)
     print("signal_VaR:", signal_VaR)
     print("signal_rebound:", signal_rebound)
@@ -101,10 +105,10 @@ def main():
         if quantity >= 1:
             # ontract-Objekt für den Micro E-Mini S&P 500 Stock Price Index Future
             contract = Contract()
-            contract.symbol = 'MES'
+            contract.symbol = 'SPY'
             contract.secType = 'STK'
-            contract.LastTradeDateOrContractMonth ='202406' #this needs to be adjusted quarterly YYYYMM -> Mar, Jun, Sep, Dec
-            contract.exchange = 'CME'
+            # contract.LastTradeDateOrContractMonth ='202406' #this needs to be adjusted quarterly YYYYMM -> Mar, Jun, Sep, Dec
+            contract.exchange = 'SMART'
             contract.currency = 'USD'
             # Erstellen Sie das Order-Objekt
             order = Order()
@@ -125,26 +129,30 @@ def main():
                 print(f"The Signal of {k}, was False, therefore we hedge our exposure and short the market!")
 
                 print("I sell now!"+ " Quanity:", quantity)
-            
-        if quantity >= 1:
-            # Contract-Objekt für den Micro E-Mini S&P 500 Stock Price Index Future
-            contract = Contract()
-            contract.symbol = 'MES'
-            contract.secType = 'STK'
-            contract.LastTradeDateOrContractMonth ='202406'
-            contract.exchange = 'CME'
-            contract.currency = 'USD'
-            # Erstellen Sie das Order-Objekt
-            order = Order()
-            order.action = 'SELL'
-            order.totalQuantity = quantity
-            order.orderType = 'MOC' ## "MKT" --> if error in this line
-            order.eTradeOnly = False
-            order.firmQuoteOnly = False
+        amount_after_selling = sum([ data['holdings'] * data['avgCost'] for symbol, data in app.positions.items()])
 
-            # Platzieren Sie die Order
-            app.placeOrder(app.next_order_id, contract, order)
+        if amount_after_selling >= 0:
+            for symbol, data in app.positions.items():
+                contract = Contract()
+                contract.symbol = symbol
+                contract.secType = 'STK'  
+                contract.exchange = 'SMART'  # SMART für automatische Routenwahl 
+                contract.currency = 'USD'  
 
+                order = Order()
+                order.action = 'SELL'
+                order.totalQuantity = data['holdings']  # Verkauf der gesamten gehaltene Menge dieser posi
+                order.orderType = 'MKT'  # Sofort
+                order.eTradeOnly = False
+                order.firmQuoteOnly = False
+
+                # Platzieren der Order
+                app.placeOrder(app.next_order_id, contract, order)
+
+                # Aktualisieren der next_order_id, um sicherzustellen, dass jede Order eine eindeutige ID hat
+                app.next_order_id += 1
+
+                time.sleep(1)
             
     time.sleep(3)  # sleep to allow order to be processed before disconnecting
 
