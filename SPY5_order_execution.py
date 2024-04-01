@@ -1,8 +1,7 @@
 from ibapi.client import EClient
 from ibapi.wrapper import EWrapper
-from ibapi.common import *
 from ibapi.contract import Contract
-from ibapi.order import *
+from ibapi.order import Order
 import threading
 import yfinance as yf
 import time
@@ -42,6 +41,22 @@ class IBapi(EWrapper, EClient):
         super().nextValidId(orderId)
         self.next_order_id = orderId
         print('The next valid order id is: ', self.next_order_id)
+
+    def place_trade(self, symbol, action, quantity):
+        '''Simple Method, to place a trade.'''
+        contract = Contract()
+        contract.symbol = symbol
+        contract.secType = 'STK'
+        contract.exchange = 'SMART'
+        contract.currency = 'USD'
+        
+        order = Order()
+        order.action = action
+        order.totalQuantity = quantity
+        order.orderType = 'MKT'
+        
+        self.placeOrder(self.next_order_id, contract, order)
+        self.next_order_id += 1
 
 def get_price(symbol):
     ticker = yf.Ticker(symbol)
