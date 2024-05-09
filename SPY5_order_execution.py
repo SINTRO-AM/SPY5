@@ -5,7 +5,7 @@ from ibapi.order import Order
 import threading
 import yfinance as yf
 import time
-from SPY5_logic import preparing_df, get_date_today, SMA_signal, VaR_signal, Rebound_signal, VaR_threshold
+from SPY5.SPY5.SPY3.SPY3_logic import preparing_df, get_date_today, SMA_signal, VaR_signal, Rebound_signal, VaR_threshold
 import math
 
 class IBapi(EWrapper, EClient):

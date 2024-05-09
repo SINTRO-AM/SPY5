@@ -1,17 +1,17 @@
 trading_instruments:
   active:
     symbol: "SPY" # Replace with the actual symbol for active SPY5 "MESZ24.CME" or "MES=F"? 
-    type: STK
+    type: "STK"
     currency: USD
-    exchange: SMART
+    exchange: "SMART"
     LastTradeDateOrContractMonth: '202406'
   passive:
-    symbol: "VDST" # Replace with the actual symbol for passive SPY5
-    type: BOND
+    symbol: "SHY" # SHY
+    type: "STK"
     currency: USD
     exchange: SMART
 
-trading_parameters:
-  maximum_allocation: 10000
-  sell_threshold: 5.0
-  buy_threshold: -5.0
+
+ACC_IDs:
+  ID_1: "DU8118873"
+  

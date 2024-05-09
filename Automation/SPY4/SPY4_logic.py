@@ -118,7 +118,7 @@ def Rebound_signal(df, date_today):
     and capturing potential gains when markets rally and rebound in the short term.
     """
 
-   ###### hier gehe ich davon aus, dass du die annualisierte Rendite des SPY meinst - passe dementsprechend den Code an
+   
     # Berechnung für den Fwd-Faktor, die annualisierte Rendite der letzten 100 Tage
     df['Fwd'] = (((df['close_SPX'] / df['close_SPX'].shift(101)) - 1) / 100) * 252
   
