@@ -6,7 +6,7 @@ trading_instruments:
     exchange: "SMART"
     LastTradeDateOrContractMonth: '202406'
   passive:
-    symbol: "SHY" # SHY
+    symbol: "VDST" # SHY
     type: "STK"
     currency: USD
     exchange: SMART

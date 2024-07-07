@@ -22,6 +22,8 @@ with open(config_path, 'r') as file:
 ACTIVE_SYMBOL = config['trading_instruments']['active']['symbol']
 PASSIVE_SYMBOL = config['trading_instruments']['passive']['symbol']
 acc_ID = config['ACC_IDs']['SPY3']
+acc_ID = "DU9103962"
+
 
 
 class IBapi(EWrapper, EClient):
