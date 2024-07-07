@@ -21,7 +21,7 @@ with open(config_path, 'r') as file:
 
 ACTIVE_SYMBOL = config['trading_instruments']['active']['symbol']
 PASSIVE_SYMBOL = config['trading_instruments']['passive']['symbol']
-acc_ID = config['ACC_IDs']['ID_1']
+acc_ID = config['ACC_IDs']['SPY3']
 
 
 class IBapi(EWrapper, EClient):
@@ -58,7 +58,6 @@ class IBapi(EWrapper, EClient):
         super().positionEnd()
         print("Position data received.")
         # self.disconnect()  # Disconnect after receiving all position data
-
 
     def nextValidId(self, orderId: int):
         '''Called when the next valid order ID is received from TWS '''
@@ -107,7 +106,7 @@ def run_loop(app):
 
 def main():
     app = IBapi()
-    app.connect('127.0.0.1', 4002, 2)
+    app.connect('127.0.0.1', 4001, 2)
 
     api_thread = threading.Thread(target=lambda: app.run(), daemon=True)
     api_thread.start()
@@ -123,7 +122,6 @@ def main():
     threshold_VaR = VaR_threshold(df,date_today)
 
     signal = (threshold_VaR and (signal_SMA or signal_VaR or signal_rebound))
-    signal = False
     # Requesting account summary
     print("Requesting Account Summary")
     app.reqAccountSummary(9001, "All", AccountSummaryTags.AllTags)
