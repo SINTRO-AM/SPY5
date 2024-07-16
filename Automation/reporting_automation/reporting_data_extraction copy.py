@@ -132,6 +132,12 @@ for account, positions in app.positions.items():
     for symbol, details in positions.items():
         details['currentPrice'] = current_prices.get(symbol, None)
 
+acc_summery_data = dict()
+for account, KPIS in app.accountSummaryData.items():
+        acc_summery_data[account] = KPIS
+
+acc_summery_data = pd.DataFrame.from_dict(acc_summery_data, orient='index')
+
 # Create DataFrame for positions with current prices
 records = []
 inv_acc_ID_mapping = {v: k for k, v in acc_ID_mapping.items()}
@@ -169,4 +175,5 @@ daw_acc_sums.to_csv(os.path.join(data_for_reporting, "daw_acc_sums.csv"))
 daw.to_csv(os.path.join(data_for_reporting, "daw.csv"))
 df_historical.to_csv(os.path.join(data_for_reporting, "historical_data.csv"))
 df_positions.to_csv(os.path.join(data_for_reporting, "positions.csv"))
+acc_summery_data.to_csv(os.path.join(data_for_reporting, "master_overview.csv"))
 app.disconnect()
