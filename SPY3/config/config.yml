@@ -1,0 +1,22 @@
+trading_instruments:
+  active:
+    symbol: "SPY" # Replace with the actual symbol for active SPY5 "MESZ24.CME" or "MES=F"? 
+    type: "STK"
+    currency: USD
+    exchange: "SMART"
+    LastTradeDateOrContractMonth: '202406'
+  passive:
+    symbol: "GOVT" # SHY
+    type: "STK"
+    currency: USD
+    exchange: SMART
+
+
+ACC_IDs:
+  CashACC: "U11744134"
+  SPY3: "U12940036"
+  SPY4: "U12930963"
+  SPY5: "U13231217"
+  GMO: "U13254634"
+  HK: "U14452095"
+  
