@@ -1,0 +1,56 @@
+,Unnamed: 0,Deposits And Withdrawals,Header,Date,Account,Type,Description,Amount
+0,0,Deposits And Withdrawals,Data,09/12/23,CashACC,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,1.0
+1,1,Deposits And Withdrawals,Data,09/13/23,CashACC,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,19000.0
+2,2,Deposits And Withdrawals,Data,09/13/23,CashACC,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,1000.0
+3,3,Deposits And Withdrawals,Data,09/14/23,CashACC,TRNSFROUT,Transfer From U***44134 To U***98147 ,-1000.0
+4,4,Deposits And Withdrawals,Data,09/15/23,CashACC,TRNSFROUT,Transfer From U***44134 To SPY3 ,-1000.0
+5,5,Deposits And Withdrawals,Data,09/15/23,SPY3,TRNSFRIN,Transfer From U***44134 To SPY3 ,1000.0
+6,6,Deposits And Withdrawals,Data,09/15/23,SPY3,TRNSFRIN,Transfer From Global Macro Opportunities To SPY3 ,1000.0
+7,7,Deposits And Withdrawals,Data,09/18/23,CashACC,TRNSFROUT,Transfer From U***44134 To SPY3 ,-7575.363
+8,8,Deposits And Withdrawals,Data,09/18/23,SPY3,TRNSFRIN,Transfer From U***44134 To SPY3 ,7575.363
+9,9,Deposits And Withdrawals,Data,09/19/23,CashACC,TRNSFROUT,Transfer From U***44134 To SPY3 ,-398.19
+10,10,Deposits And Withdrawals,Data,09/19/23,SPY3,TRNSFRIN,Transfer From U***44134 To SPY3 ,398.19
+11,11,Deposits And Withdrawals,Data,10/11/23,CashACC,TRNSFROUT,Transfer From U***44134 To Global Macro Opportunities ,-10000.0
+12,12,Deposits And Withdrawals,Data,10/11/23,Global Macro Opportunities,TRNSFRIN,Transfer From U***44134 To Global Macro Opportunities ,10000.0
+13,13,Deposits And Withdrawals,Data,10/30/23,CashACC,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,2000.0
+14,14,Deposits And Withdrawals,Data,10/31/23,CashACC,TRNSFROUT,Transfer From U***44134 To SPY4 ,-5200.635
+15,15,Deposits And Withdrawals,Data,10/31/23,SPY4,TRNSFRIN,Transfer From U***44134 To SPY4 ,5200.635
+16,16,Deposits And Withdrawals,Data,11/03/23,Global Macro Opportunities,TRNSFROUT,Transfer From Global Macro Opportunities To SPY4 ,-4659.75
+17,17,Deposits And Withdrawals,Data,11/03/23,SPY4,TRNSFRIN,Transfer From Global Macro Opportunities To SPY4 ,4659.75
+18,18,Deposits And Withdrawals,Data,11/06/23,CashACC,TRNSFRIN,Transfer From Global Macro Opportunities To U***44134 ,998.0
+19,19,Deposits And Withdrawals,Data,11/06/23,Global Macro Opportunities,TRNSFROUT,Transfer From Global Macro Opportunities To U***44134 ,-998.0
+20,20,Deposits And Withdrawals,Data,11/27/23,Global Macro Opportunities,TRNSFRIN,Transfer From SPY4 To Global Macro Opportunities ,4998.3465
+21,21,Deposits And Withdrawals,Data,11/27/23,SPY4,TRNSFROUT,Transfer From SPY4 To Global Macro Opportunities ,-4998.3465
+22,22,Deposits And Withdrawals,Data,12/15/23,CashACC,WITHDRAWAL,Disbursement Initiated By Interactive Brokers LLC,-598.3
+23,23,Deposits And Withdrawals,Data,01/02/24,Global Macro Opportunities,TRNSFROUT,Transfer From Global Macro Opportunities To SPY4 ,-475.2488
+24,24,Deposits And Withdrawals,Data,01/02/24,SPY4,TRNSFRIN,Transfer From Global Macro Opportunities To SPY4 ,475.2488
+25,25,Deposits And Withdrawals,Data,01/08/24,CashACC,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,7532.59288
+26,26,Deposits And Withdrawals,Data,01/08/24,CashACC,TRNSFROUT,Transfer From U***44134 To SPY4 ,-4840.013
+27,27,Deposits And Withdrawals,Data,01/08/24,SPY4,TRNSFRIN,Transfer From U***44134 To SPY4 ,4840.013
+28,28,Deposits And Withdrawals,Data,01/29/24,CashACC,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,1000.0
+29,29,Deposits And Withdrawals,Data,01/30/24,CashACC,TRNSFRIN,Transfer From Global Macro Opportunities To U***44134 ,78.9551415
+30,30,Deposits And Withdrawals,Data,01/30/24,CashACC,TRNSFROUT,Transfer From U***44134 To Global Macro Opportunities ,-1998.93
+31,31,Deposits And Withdrawals,Data,01/30/24,CashACC,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,1000.0
+32,32,Deposits And Withdrawals,Data,01/30/24,Global Macro Opportunities,TRNSFROUT,Transfer From Global Macro Opportunities To U***44134 ,-78.9551415
+33,33,Deposits And Withdrawals,Data,01/30/24,Global Macro Opportunities,TRNSFRIN,Transfer From U***44134 To Global Macro Opportunities ,1998.93
+34,34,Deposits And Withdrawals,Data,02/16/24,CashACC,TRNSFROUT,Transfer From U***44134 To Global Macro Opportunities ,-1000.0
+35,35,Deposits And Withdrawals,Data,02/16/24,CashACC,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,1000.0
+36,36,Deposits And Withdrawals,Data,02/16/24,Global Macro Opportunities,TRNSFRIN,Transfer From U***44134 To Global Macro Opportunities ,1000.0
+37,37,Deposits And Withdrawals,Data,02/28/24,CashACC,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,6294.402476
+38,38,Deposits And Withdrawals,Data,03/07/24,CashACC,TRNSFROUT,Transfer From U***44134 To SPY5 ,-6211.12
+39,39,Deposits And Withdrawals,Data,03/07/24,SPY5,TRNSFRIN,Transfer From U***44134 To SPY5 ,6211.12
+40,40,Deposits And Withdrawals,Data,03/18/24,CashACC,TRNSFROUT,Transfer From U***44134 To hanskeller ,-10000.0
+41,41,Deposits And Withdrawals,Data,03/18/24,CashACC,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,10000.0
+42,42,Deposits And Withdrawals,Data,03/18/24,hanskeller,TRNSFRIN,Transfer From U***44134 To hanskeller ,10000.0
+43,43,Deposits And Withdrawals,Data,06/25/24,CashACC,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,7296.703551
+44,44,Deposits And Withdrawals,Data,07/02/24,CashACC,TRNSFROUT,Transfer From U***44134 To SPY5 ,-7242.8885514
+45,45,Deposits And Withdrawals,Data,07/02/24,SPY5,TRNSFRIN,Transfer From U***44134 To SPY5 ,7242.8885514
+46,46,Deposits And Withdrawals,Data,07/03/24,CashACC,TRNSFROUT,Transfer From U***44134 To SPY5 ,-7000.0
+47,47,Deposits And Withdrawals,Data,07/03/24,CashACC,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,7000.0
+48,48,Deposits And Withdrawals,Data,07/03/24,SPY5,TRNSFRIN,Transfer From U***44134 To SPY5 ,7000.0
+49,49,Deposits And Withdrawals,Data,07/04/24,Global Macro Opportunities,TRNSFRIN,Transfer From SPY5 To Global Macro Opportunities ,2774.82
+50,50,Deposits And Withdrawals,Data,07/04/24,Global Macro Opportunities,TRNSFROUT,Transfer From Global Macro Opportunities To SPY5 ,-2774.82
+51,51,Deposits And Withdrawals,Data,07/04/24,SPY5,TRNSFROUT,Transfer From SPY5 To Global Macro Opportunities ,-2774.82
+52,52,Deposits And Withdrawals,Data,07/04/24,SPY5,TRNSFRIN,Transfer From Global Macro Opportunities To SPY5 ,2774.82
+53,53,Deposits And Withdrawals,Data,07/05/24,Global Macro Opportunities,TRNSFRIN,Transfer From SPY5 To Global Macro Opportunities ,1000.0
+54,54,Deposits And Withdrawals,Data,07/05/24,SPY5,TRNSFROUT,Transfer From SPY5 To Global Macro Opportunities ,-1000.0
