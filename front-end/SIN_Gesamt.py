@@ -4,7 +4,16 @@ from dash import Dash, html, dcc, dash_table
 from dash.dependencies import Input, Output, State
 import numpy as np
 import yfinance as yf
-
+from dash.exceptions import PreventUpdate
+from graphs.overall_graphs import (
+                    create_nav_figure, 
+                    create_cumulative_return_figure,
+                    create_max_drawdown_figure,
+                    calculate_kpis
+                    )
+from graphs.strategy_graphs import (
+                calculate_strategy_kpis
+                    )
 # Funktion zum Einlesen und Verarbeiten der CSV-Dateien
 def process_nav_file(file_path):
     df = pd.read_csv(file_path, skiprows=3)
@@ -116,55 +125,7 @@ app.layout = html.Div([
     [Input('overall-nav-graph', 'relayoutData')]
 )
 def update_overall_graphs(relayoutData):
-    def create_nav_figure(df, title):
-        return {
-            'data': [go.Scatter(x=df['Date'], y=df['NAV'], mode='lines', name='NAV')],
-            'layout': go.Layout(title=title, xaxis={'title': 'Date'}, yaxis={'title': 'NAV'}, font=dict(color='#2c3e50'))
-        }
-    
-    def create_cumulative_return_figure(df, spy_data, title):
-        return {
-            'data': [
-                go.Scatter(x=df['Date'], y=df['Cumulative_Log_Return'], mode='lines', name='Strategy Cumulative Log Return'),
-                go.Scatter(x=spy_data['Date'], y=spy_data['Cumulative_Log_Return'], mode='lines', name='SPY Cumulative Log Return')
-            ],
-            'layout': go.Layout(title=title, xaxis={'title': 'Date'}, yaxis={'title': 'Cumulative Log Return'}, font=dict(color='#2c3e50'))
-        }
-    
-    def create_max_drawdown_figure(df, spy_data, title):
-        return {
-            'data': [
-                go.Scatter(x=df['Date'], y=df['Max_Drawdown'], mode='lines', name='Strategy Max Drawdown'),
-                go.Scatter(x=spy_data['Date'], y=spy_data['Max_Drawdown'], mode='lines', name='SPY Max Drawdown')
-            ],
-            'layout': go.Layout(title=title, xaxis={'title': 'Date'}, yaxis={'title': 'Max Drawdown'}, font=dict(color='#2c3e50'))
-        }
-    
-    def calculate_kpis(df, spy_data):
-        strategy_annual_return = (np.exp(df['Log_Return'].mean() * 252) - 1) * 100
-        strategy_annual_vol = df['Log_Return'].std() * np.sqrt(252) * 100
-        strategy_total_return = (np.exp(df['Cumulative_Log_Return'].iloc[-1]) - 1) * 100
-        strategy_sharpe_ratio = df['Log_Return'].mean() / df['Log_Return'].std() * (252 ** 0.5)
-        strategy_max_drawdown = df['Max_Drawdown'].min() * 100
-        strategy_positive_days = (df['Log_Return'] > 0).mean() * 100
 
-        spy_annual_return = (np.exp(spy_data['Log_Return'].mean() * 252) - 1) * 100
-        spy_annual_vol = spy_data['Log_Return'].std() * np.sqrt(252) * 100
-        spy_total_return = (np.exp(spy_data['Cumulative_Log_Return'].iloc[-1]) - 1) * 100
-        spy_sharpe_ratio = df['Log_Return'].mean() / df['Log_Return'].std() * (252 ** 0.5)
-        spy_max_drawdown = spy_data['Max_Drawdown'].min() * 100
-        spy_positive_days = (spy_data['Log_Return'] > 0).mean() * 100
-
-        kpis = [
-            {"KPI": "Annualized Return", "Overall": f"{strategy_annual_return:.2f}%", "SPY": f"{spy_annual_return:.2f}%"},
-            {"KPI": "Annualized Volatility", "Overall": f"{strategy_annual_vol:.2f}%", "SPY": f"{spy_annual_vol:.2f}%"},
-            {"KPI": "Total Return", "Overall": f"{strategy_total_return:.2f}%", "SPY": f"{spy_total_return:.2f}%"},
-            {"KPI": "Sharpe Ratio", "Overall": f"{strategy_sharpe_ratio:.2f}", "SPY": f"{spy_sharpe_ratio:.2f}"},
-            {"KPI": "Max Drawdown", "Overall": f"{strategy_max_drawdown:.2f}%", "SPY": f"{spy_max_drawdown:.2f}%"},
-            {"KPI": "Positive Days %", "Overall": f"{strategy_positive_days:.2f}%", "SPY": f"{spy_positive_days:.2f}%"}
-        ]
-        
-        return kpis
     
     nav_fig = create_nav_figure(data['Overall'], 'Overall NAV Over Time')
     cumulative_return_fig = create_cumulative_return_figure(data['Overall'], spy_data, 'Overall Cumulative Log Return Over Time')
@@ -178,54 +139,7 @@ def update_overall_graphs(relayoutData):
     [Input('overall-nav-graph', 'relayoutData')]
 )
 def update_strategy_graphs(relayoutData):
-    def create_nav_figure(df, title):
-        return {
-            'data': [go.Scatter(x=df['Date'], y=df['NAV'], mode='lines', name='NAV')],
-            'layout': go.Layout(title=title, xaxis={'title': 'Date'}, yaxis={'title': 'NAV'}, font=dict(color='#2c3e50'))
-        }
-    
-    def create_cumulative_return_figure(df, spy_data, title):
-        return {
-            'data': [
-                go.Scatter(x=df['Date'], y=df['Cumulative_Log_Return'], mode='lines', name='Strategy Cumulative Log Return'),
-                go.Scatter(x=spy_data['Date'], y=spy_data['Cumulative_Log_Return'], mode='lines', name='SPY Cumulative Log Return')
-            ],
-            'layout': go.Layout(title=title, xaxis={'title': 'Date'}, yaxis={'title': 'Cumulative Log Return'}, font=dict(color='#2c3e50'))
-        }
-    
-    def create_max_drawdown_figure(df, spy_data, title):
-        return {
-            'data': [
-                go.Scatter(x=df['Date'], y=df['Max_Drawdown'], mode='lines', name='Strategy Max Drawdown'),
-                go.Scatter(x=spy_data['Date'], y=spy_data['Max_Drawdown'], mode='lines', name='SPY Max Drawdown')
-            ],
-            'layout': go.Layout(title=title, xaxis={'title': 'Date'}, yaxis={'title': 'Max Drawdown'}, font=dict(color='#2c3e50'))
-        }
-    
-    def calculate_kpis(df, spy_data):
-        strategy_annual_return = (np.exp(df['Log_Return'].mean() * 252) - 1) * 100
-        strategy_annual_vol = df['Log_Return'].std() * np.sqrt(252) * 100
-        strategy_total_return = (np.exp(df['Cumulative_Log_Return'].iloc[-1]) - 1) * 100
-        strategy_sharpe_ratio = df['Log_Return'].mean() / df['Log_Return'].std() * (252 ** 0.5)
-        strategy_max_drawdown = df['Max_Drawdown'].min() * 100
-        strategy_positive_days = (df['Log_Return'] > 0).mean() * 100
 
-        spy_annual_return = (np.exp(spy_data['Log_Return'].mean() * 252) - 1) * 100
-        spy_annual_vol = spy_data['Log_Return'].std() * np.sqrt(252) * 100
-        spy_total_return = (np.exp(spy_data['Cumulative_Log_Return'].iloc[-1]) - 1) * 100
-        spy_sharpe_ratio = spy_data['Log_Return'].mean() / spy_data['Log_Return'].std() * (252 ** 0.5)
-        spy_max_drawdown = spy_data['Max_Drawdown'].min() * 100
-        spy_positive_days = (spy_data['Log_Return'] > 0).mean() * 100
-
-        kpis = [
-            {"KPI": "Annualized Return", strategy: f"{strategy_annual_return:.2f}%", "SPY": f"{spy_annual_return:.2f}%"},
-            {"KPI": "Annualized Volatility", strategy: f"{strategy_annual_vol:.2f}%", "SPY": f"{spy_annual_vol:.2f}%"},
-            {"KPI": "Total Return", strategy: f"{strategy_total_return:.2f}%", "SPY": f"{spy_total_return:.2f}%"},
-            {"KPI": "Sharpe Ratio", strategy: f"{strategy_sharpe_ratio:.2f}", "SPY": f"{spy_sharpe_ratio:.2f}"},
-            {"KPI": "Max Drawdown", strategy: f"{strategy_max_drawdown:.2f}%", "SPY": f"{spy_max_drawdown:.2f}%"},
-            {"KPI": "Positive Days %", strategy: f"{strategy_positive_days:.2f}%", "SPY": f"{spy_positive_days:.2f}%"}
-        ]
-        return kpis
 
     strategy_layouts = []
     
@@ -233,7 +147,7 @@ def update_strategy_graphs(relayoutData):
         nav_fig = create_nav_figure(data[strategy], f'{strategy} NAV Over Time')
         cumulative_return_fig = create_cumulative_return_figure(data[strategy], spy_data, f'{strategy} Cumulative Log Return Over Time')
         max_drawdown_fig = create_max_drawdown_figure(data[strategy], spy_data, f'{strategy} Max Drawdown Over Time')
-        kpis = calculate_kpis(data[strategy], spy_data)
+        kpis = calculate_strategy_kpis(data[strategy], strategy, spy_data)
         
         strategy_layouts.append(html.Div([
             html.H2(f'{strategy} Strategy', className='strategy-header'),

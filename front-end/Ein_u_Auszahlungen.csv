@@ -1,0 +1,64 @@
+Introduction,Header,Name,Account,Alias,BaseCurrency,AccountType,AnalysisPeriod,PerformanceMeasure
+Introduction,Data,Ein u. Auszahlungen,SINTRO Asset Management GmbH,,EUR,,"September 12, 2023 to July 26, 2024 (Daily)",MWR
+Deposits And Withdrawals,MetaInfo,Analysis Period,"September 12, 2023 - July 26, 2024"
+Deposits And Withdrawals,Header,Date,Account,Type,Description,Amount
+Deposits And Withdrawals,Data,09/12/23,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,1
+Deposits And Withdrawals,Data,09/13/23,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,19000
+Deposits And Withdrawals,Data,09/13/23,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,1000
+Deposits And Withdrawals,Data,09/14/23,U11744134,TRNSFROUT,Transfer From U11744134 To U12898147 ,-1000
+Deposits And Withdrawals,Data,09/15/23,U11744134,TRNSFROUT,Transfer From U11744134 To U12940036 ,-1000
+Deposits And Withdrawals,Data,09/15/23,U12940036,TRNSFRIN,Transfer From U11744134 To U12940036 ,1000
+Deposits And Withdrawals,Data,09/15/23,U12940036,TRNSFRIN,Transfer From U12930963 To U12940036 ,1000
+Deposits And Withdrawals,Data,09/18/23,U11744134,TRNSFROUT,Transfer From U11744134 To U12940036 ,-7575.363
+Deposits And Withdrawals,Data,09/18/23,U12940036,TRNSFRIN,Transfer From U11744134 To U12940036 ,7575.363
+Deposits And Withdrawals,Data,09/19/23,U11744134,TRNSFROUT,Transfer From U11744134 To U12940036 ,-398.19
+Deposits And Withdrawals,Data,09/19/23,U12940036,TRNSFRIN,Transfer From U11744134 To U12940036 ,398.19
+Deposits And Withdrawals,Data,10/11/23,U11744134,TRNSFROUT,Transfer From U11744134 To U12930963 ,-10000
+Deposits And Withdrawals,Data,10/11/23,U12930963,TRNSFRIN,Transfer From U11744134 To U12930963 ,10000
+Deposits And Withdrawals,Data,10/30/23,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,2000
+Deposits And Withdrawals,Data,10/31/23,U11744134,TRNSFROUT,Transfer From U11744134 To U13254634 ,-5200.635
+Deposits And Withdrawals,Data,10/31/23,U13254634,TRNSFRIN,Transfer From U11744134 To U13254634 ,5200.635
+Deposits And Withdrawals,Data,11/03/23,U12930963,TRNSFROUT,Transfer From U12930963 To U13254634 ,-4659.75
+Deposits And Withdrawals,Data,11/03/23,U13254634,TRNSFRIN,Transfer From U12930963 To U13254634 ,4659.75
+Deposits And Withdrawals,Data,11/06/23,U11744134,TRNSFRIN,Transfer From U12930963 To U11744134 ,998
+Deposits And Withdrawals,Data,11/06/23,U12930963,TRNSFROUT,Transfer From U12930963 To U11744134 ,-998
+Deposits And Withdrawals,Data,11/27/23,U12930963,TRNSFRIN,Transfer From U13254634 To U12930963 ,4998.3465
+Deposits And Withdrawals,Data,11/27/23,U13254634,TRNSFROUT,Transfer From U13254634 To U12930963 ,-4998.3465
+Deposits And Withdrawals,Data,12/15/23,U11744134,WITHDRAWAL,Disbursement Initiated By Denis Keller ,-598.3
+Deposits And Withdrawals,Data,01/02/24,U12930963,TRNSFROUT,Transfer From U12930963 To U13254634 ,-475.2488
+Deposits And Withdrawals,Data,01/02/24,U13254634,TRNSFRIN,Transfer From U12930963 To U13254634 ,475.2488
+Deposits And Withdrawals,Data,01/08/24,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,7532.59288
+Deposits And Withdrawals,Data,01/08/24,U11744134,TRNSFROUT,Transfer From U11744134 To U13254634 ,-4840.013
+Deposits And Withdrawals,Data,01/08/24,U13254634,TRNSFRIN,Transfer From U11744134 To U13254634 ,4840.013
+Deposits And Withdrawals,Data,01/29/24,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,1000
+Deposits And Withdrawals,Data,01/30/24,U11744134,TRNSFRIN,Transfer From U12930963 To U11744134 ,78.9551415
+Deposits And Withdrawals,Data,01/30/24,U11744134,TRNSFROUT,Transfer From U11744134 To U12930963 ,-1998.93
+Deposits And Withdrawals,Data,01/30/24,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,1000
+Deposits And Withdrawals,Data,01/30/24,U12930963,TRNSFROUT,Transfer From U12930963 To U11744134 ,-78.9551415
+Deposits And Withdrawals,Data,01/30/24,U12930963,TRNSFRIN,Transfer From U11744134 To U12930963 ,1998.93
+Deposits And Withdrawals,Data,02/16/24,U11744134,TRNSFROUT,Transfer From U11744134 To U12930963 ,-1000
+Deposits And Withdrawals,Data,02/16/24,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,1000
+Deposits And Withdrawals,Data,02/16/24,U12930963,TRNSFRIN,Transfer From U11744134 To U12930963 ,1000
+Deposits And Withdrawals,Data,02/28/24,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,6294.402476
+Deposits And Withdrawals,Data,03/07/24,U11744134,TRNSFROUT,Transfer From U11744134 To U13231217 ,-6211.12
+Deposits And Withdrawals,Data,03/07/24,U13231217,TRNSFRIN,Transfer From U11744134 To U13231217 ,6211.12
+Deposits And Withdrawals,Data,03/18/24,U11744134,TRNSFROUT,Transfer From U11744134 To U14452095 ,-10000
+Deposits And Withdrawals,Data,03/18/24,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,10000
+Deposits And Withdrawals,Data,03/18/24,U14452095,TRNSFRIN,Transfer From U11744134 To U14452095 ,10000
+Deposits And Withdrawals,Data,06/25/24,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,7296.703551
+Deposits And Withdrawals,Data,07/02/24,U11744134,TRNSFROUT,Transfer From U11744134 To U13231217 ,-7242.8885514
+Deposits And Withdrawals,Data,07/02/24,U13231217,TRNSFRIN,Transfer From U11744134 To U13231217 ,7242.8885514
+Deposits And Withdrawals,Data,07/03/24,U11744134,TRNSFROUT,Transfer From U11744134 To U13231217 ,-7000
+Deposits And Withdrawals,Data,07/03/24,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,7000
+Deposits And Withdrawals,Data,07/03/24,U13231217,TRNSFRIN,Transfer From U11744134 To U13231217 ,7000
+Deposits And Withdrawals,Data,07/04/24,U12930963,TRNSFRIN,Transfer From U13231217 To U12930963 ,2774.82
+Deposits And Withdrawals,Data,07/04/24,U12930963,TRNSFROUT,Transfer From U12930963 To U13231217 ,-2774.82
+Deposits And Withdrawals,Data,07/04/24,U13231217,TRNSFROUT,Transfer From U13231217 To U12930963 ,-2774.82
+Deposits And Withdrawals,Data,07/04/24,U13231217,TRNSFRIN,Transfer From U12930963 To U13231217 ,2774.82
+Deposits And Withdrawals,Data,07/05/24,U12930963,TRNSFRIN,Transfer From U13231217 To U12930963 ,1000
+Deposits And Withdrawals,Data,07/05/24,U13231217,TRNSFROUT,Transfer From U13231217 To U12930963 ,-1000
+Deposits And Withdrawals,Data,07/24/24,U11744134,TRNSFROUT,Transfer From U11744134 To U15096623 ,-3121.389
+Deposits And Withdrawals,Data,07/24/24,U11744134,DEPOSIT,Cash Receipts / Electronic Fund Transfers ,3121.555752
+Disclosure,"IMPORTANT NOTE: This portfolio analysis was generated using Interactive Brokers' PortfolioAnalyst tool, which allows Interactive Brokers clients to generate analyses of their accounts using market data provided by third parties along with trade and account data contained in Interactive Brokers' systems. This analysis is for information purposes only and is provided AS IS. Interactive Brokers makes no warranty of any kind, express or implied, as to this report analysis and its contents. The data provided for use in this Portfolio Analysis is believed to be accurate but completeness and accuracy of the information is not guaranteed, and Interactive Brokers has no liability with respect thereto. The data regarding accounts held outside of Interactive Brokers is obtained either directly from you or from the financial institutions holding those accounts through a third-party service provider and Interactive Brokers has not reviewed its accuracy.
+
+This material in this analysis is intended only as a reference and should not be relied upon for the maintenance of your books and records for tax, accounting, financial, or regulatory reporting or for any other purposes. This analysis is not an offer or a solicitation of an offer to buy or sell any security. This material does not and is not intended to take into account the particular financial conditions, investment objectives or requirements of individual customers. Before acting on this material, you should consider whether it is suitable for your particular circumstances and, as necessary, seek professional advice."
